@@ -8,6 +8,7 @@ public class HashStrategy implements ShortCodeGeneratorStrategy{
     public String generateShortCode(String longUrl) {
         long num = longUrl.hashCode() & 0xffffffffL;  //to handle negative we use 0xffff... due to which int convert into long
         StringBuilder sb=new StringBuilder();
+        if(num==0) return "0";
         while(num>0){
             int rem=(int)(num%62);
             if(rem>=0 && rem<=9){
