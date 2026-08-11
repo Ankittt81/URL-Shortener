@@ -3,7 +3,7 @@ package url_shortener.generator;
 import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
-@Component("RandomStrategy")
+@Component("random")
 public class RandomStrategy implements ShortCodeGeneratorStrategy{
     SecureRandom random = new SecureRandom();
     private String characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";

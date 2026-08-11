@@ -2,9 +2,14 @@ package url_shortener.generator;
 
 import org.springframework.stereotype.Component;
 
-@Component("HashStrategy")
+import java.security.SecureRandom;
+
+@Component("hash")
 public class HashStrategy implements ShortCodeGeneratorStrategy{
     private RandomStrategy  randomStrategy;
+    SecureRandom random = new SecureRandom();
+    private String characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
     public HashStrategy(){
         randomStrategy = new RandomStrategy();
     }
@@ -35,7 +40,17 @@ public class HashStrategy implements ShortCodeGeneratorStrategy{
 
     @Override
     public String generateAnotherCode(String longUrl) {
-        String suffix=randomStrategy.generateShortCode(longUrl);
+        String suffix=getSuffix();
         return generateShortCode(longUrl+suffix);
+    }
+
+    private String getSuffix(){
+        StringBuilder sb=new StringBuilder();
+        for(int i=0;i<6;i++) {
+            int randomInt = random.nextInt(62);
+            char ch = characters.charAt(randomInt);
+            sb.append(ch);
+        }
+        return sb.toString();
     }
 }
