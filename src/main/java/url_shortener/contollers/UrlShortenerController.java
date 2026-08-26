@@ -13,6 +13,7 @@ import url_shortener.services.IUrlShortenerService;
 
 import java.net.URI;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/url")
 public class UrlShortenerController {
