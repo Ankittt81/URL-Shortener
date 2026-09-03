@@ -1,16 +1,12 @@
 package url_shortener.contollers;
 
-import org.springframework.http.HttpHeaders;
+
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import url_shortener.dtos.CreateShortUrlRequest;
 import url_shortener.dtos.CreateShortUrlResponse;
-import url_shortener.exceptions.ShortUrlNotFoundException;
-import url_shortener.models.Url;
 import url_shortener.services.IUrlShortenerService;
-
 import java.net.URI;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -25,7 +21,7 @@ public class UrlShortenerController {
 
     @PostMapping()
     public ResponseEntity<CreateShortUrlResponse> generateShortCode( @RequestBody CreateShortUrlRequest request) {
-        String code= urlShortenerService.generateShortUrl(request.getLongUrl());
+        String code= urlShortenerService.generateShortUrl(request);
         return ResponseEntity.ok().body(new CreateShortUrlResponse(code));
     }
 
@@ -43,8 +39,5 @@ public class UrlShortenerController {
                 .location(URI.create(url))
                 .build();
     }
-    @ExceptionHandler(ShortUrlNotFoundException.class)
-    public ResponseEntity<String> handleShortUrlNotFoundException(ShortUrlNotFoundException e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-    }
+
 }

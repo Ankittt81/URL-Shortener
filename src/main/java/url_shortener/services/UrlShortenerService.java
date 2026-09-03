@@ -2,6 +2,7 @@ package url_shortener.services;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import url_shortener.dtos.CreateShortUrlRequest;
 import url_shortener.exceptions.ShortUrlNotFoundException;
 import url_shortener.factory.StrategyFactory;
 import url_shortener.generator.ShortCodeGeneratorStrategy;
@@ -23,7 +24,8 @@ public class UrlShortenerService implements IUrlShortenerService{
     }
 
     @Override
-    public String generateShortUrl(String longUrl) {
+    public String generateShortUrl(CreateShortUrlRequest  request){
+        String longUrl=request.getLongUrl();
         if(longUrl==null || longUrl.trim().isEmpty()){
             throw new IllegalArgumentException("URL cannot be null or empty");
         }

@@ -7,4 +7,6 @@ import lombok.Setter;
 @Setter
 public class CreateShortUrlRequest {
     private String longUrl;
+    private Integer expiresIn;
+    private String alias;
 }
